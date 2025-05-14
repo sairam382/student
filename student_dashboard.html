@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <h2>Welcome, <span th:text="${student.name}"></span></h2>
+    <h3>Your Registered Courses</h3>
+    <table class="table">
+        <tr><th>Title</th><th>Credits</th><th>Action</th></tr>
+        <tr th:each="reg : ${registrations}">
+            <td th:text="${reg.course.title}"></td>
+            <td th:text="${reg.course.credits}"></td>
+            <td>
+                <form th:action="@{/student/deregisterCourse}" method="post">
+                    <input type="hidden" name="courseId" th:value="${reg.course.id}"/>
+                    <button type="submit" class="btn btn-danger">Deregister</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <a href="/student/courses">Register for New Courses</a>
+</div>
+</body>
+</html>
